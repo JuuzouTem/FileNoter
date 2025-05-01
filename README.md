@@ -1,4 +1,4 @@
-# File-Reader
+# File Noter
 
 A simple Windows utility to add and view notes associated with files and folders directly from the right-click context menu.
 
