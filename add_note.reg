@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\TakeNote]
+@="Take Note"
+"Icon"="imageres.dll,71" ; Opsiyonel: Not defteri ikonu
+
+[HKEY_CLASSES_ROOT\*\shell\TakeNote\command]
+@="\"C:\\Users\\your_folder_location\\FileNoter.exe\" --add \"%1\""
