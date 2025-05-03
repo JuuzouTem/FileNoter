@@ -35,10 +35,10 @@ You have two main ways to install File Noter: the recommended installer or manua
 
 Use this if you prefer not to use the installer or want more control over the location.
 
-1.  **Download:** Go to the [Latest Release](https://github.com/JuuzouTem/FileNoter/releases/latest) page. Download `FileNoter.exe`. You will also need sample `.reg` files (or create your own based on the examples below). Let's assume you have `add_edit_note.reg`, `view_note.reg`, and `view_all_notes.reg`.
+1.  **Download:** Go to the [Latest Release](https://github.com/JuuzouTem/FileNoter) page. Basically download all files. You will need sample `.reg` files (or create your own based on the examples below). Let's assume you have `add_edit_note.reg`, `view_note.reg`, `add_note_folder.reg`,`view_note_folder.reg` and `view_all_notes.reg`.
 2.  **Place Executable:** Move `FileNoter.exe` to a permanent location on your computer where it won't be accidentally moved or deleted (e.g., `C:\Program Files\FileNoter\`).
 3.  **Edit Registry Files:**
-    *   Open **each** `.reg` file (`add_edit_note.reg`, `view_note.reg`, `view_all_notes.reg`) using a text editor (like Notepad).
+    *   Open **each** `.reg` file (`add_edit_note.reg`, `view_note.reg`, `add_note_folder.reg`,`view_note_folder.reg` and `view_all_notes.reg`) using a text editor (like Notepad).
     *   Find lines similar to the examples below and replace `"C:\\path\\to\\your\\FileNoter.exe"` with the **full path** to where you placed `FileNoter.exe`.
     *   **Crucially:** Use **double backslashes (`\\`)** in the path within the `.reg` file.
 
@@ -103,7 +103,7 @@ Use this if you prefer running directly from the Python script.
 2.  **Download:** Download the `file_noter_vX.X.X.py` script from the source code or Releases. You will also need sample `.reg` files as described in Option 2.
 3.  **Place Script:** Move the `.py` script to a permanent location (e.g., `C:\Scripts\FileNoter\`). Rename it to something simple like `filenoter.py` if desired.
 4.  **Edit Registry Files:**
-    *   Open **each** `.reg` file (`add_edit_note.reg`, `view_note.reg`, `view_all_notes.reg`) using a text editor.
+    *   Open **each** `.reg` file (`add_edit_note.reg`, `view_note.reg`, `add_note_folder.reg`,`view_note_folder.reg` and `view_all_notes.reg`) using a text editor.
     *   Locate the command lines. Replace the path to the executable with the path to `pythonw.exe` followed by the path to your script.
     *   Use **double backslashes (`\\`)** for all paths.
 
