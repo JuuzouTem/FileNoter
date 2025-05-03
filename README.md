@@ -92,7 +92,7 @@ Use this if you prefer not to use the installer or want more control over the lo
         Windows Registry Editor Version 5.00
 
         [HKEY_CLASSES_ROOT\Directory\shell\TakeNote]
-        @="Not Al"
+        @="Add/Edit Note"
         "Icon"="imageres.dll,71" ; Optional: Icon
 
         [HKEY_CLASSES_ROOT\Directory\shell\TakeNote\command]
@@ -105,7 +105,7 @@ Use this if you prefer not to use the installer or want more control over the lo
         Windows Registry Editor Version 5.00
 
         [HKEY_CLASSES_ROOT\Directory\shell\ViewNoteSpecific]
-        @="Notu Görüntüle"
+        @="View Note"
         "Icon"="shell32.dll,277" ; Optional: Icon
 
         [HKEY_CLASSES_ROOT\Directory\shell\ViewNoteSpecific\command]
