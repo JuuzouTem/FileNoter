@@ -76,16 +76,31 @@ Use this if you prefer not to use the installer or want more control over the lo
         @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view \"%1\""
         ```
 
-    *   **Example for `view_all_notes.reg` (Applies to Folder Background):**
-        ```reg
-        Windows Registry Editor Version 5.00
+*   **Example for `view_all_notes.reg` (Applies to Desktop and Folder Background):**
+    ```reg
+    Windows Registry Editor Version 5.00
 
-        [HKEY_CLASSES_ROOT\Directory\Background\shell\ViewAllFileNoter]
-        @="View All Notes"
+    ; For Desktop Background
+    [HKEY_CLASSES_ROOT\DesktopBackground\Shell\FileNoterViewAll]
+    @="View All FileNoter Notes"
+    ; Replace the Icon path below with the ACTUAL path to your FileNoter.exe
+    "Icon"="\"C:\\Program Files\\FileNoter\\FileNoter.exe\",0"
 
-        [HKEY_CLASSES_ROOT\Directory\Background\shell\ViewAllFileNoter\command]
-        @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view-all"
-        ```
+    [HKEY_CLASSES_ROOT\DesktopBackground\Shell\FileNoterViewAll\command]
+    ; Replace the command path below with the ACTUAL path to your FileNoter.exe
+    @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view-all"
+
+    ; For Directory Background (inside folders)
+    [HKEY_CLASSES_ROOT\Directory\Background\shell\FileNoterViewAll]
+    @="View All FileNoter Notes"
+    ; Replace the Icon path below with the ACTUAL path to your FileNoter.exe
+    "Icon"="\"C:\\Program Files\\FileNoter\\FileNoter.exe\",0"
+
+    [HKEY_CLASSES_ROOT\Directory\Background\shell\FileNoterViewAll\command]
+    ; Replace the command path below with the ACTUAL path to your FileNoter.exe
+    @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view-all"
+    ```
+    *(Note: Remember to replace `"C:\\Program Files\\FileNoter\\FileNoter.exe"` in the `Icon` and `command` lines with the actual path where you placed the executable).*
 
     *   **Example for `add_note_folder_only.reg` (Applies *only* to Folders, specific text/icon):**
         ```reg
