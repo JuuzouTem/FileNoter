@@ -1,72 +1,141 @@
 # File Noter
 
-A simple Windows utility to add and view notes associated with files and folders directly from the right-click context menu.
+A simple and fast Windows utility to add, view, and manage notes associated with files and folders directly from the right-click context menu.
 
 ## Features
 
-*   Add text notes to any file or folder.
-*   View existing notes associated with files or folders.
-*   Integrates seamlessly with the Windows Explorer context menu (right-click menu).
-*   Provides options for using a pre-compiled executable or the Python script directly.
+*   **Add/Edit Notes:** Add or modify text notes for any file or folder.
+*   **View Notes:** Quickly view the note associated with a specific file or folder.
+*   **View All Notes:** A dedicated window to browse, search (implicitly by scrolling/viewing), and manage all your saved notes.
+    *   See the note content directly in the window.
+    *   Delete notes you no longer need.
+    *   Right-click an entry to open the file/folder's location in Explorer.
+*   **Fast Operation:** Thanks to a background process architecture, note windows open much faster after the initial launch.
+*   **Context Menu Integration:** Seamlessly integrates with the Windows Explorer context menu (right-click menu).
+*   **Flexible Installation:** Use the easy installer (`.exe`) or set up manually using the Python script.
+*   **Data Storage:** Notes are stored locally in a simple database file within your `%APPDATA%\FileNoter` folder.
 
 ## Installation and Setup
 
-Choose one of the following methods based on whether you want to use the pre-compiled executable (`.exe`) or the Python script (`.py`).
+You have two main ways to install File Noter: the recommended installer or manual setup.
 
-**Important:** Both methods require modifying the Windows Registry. This requires **Administrator privileges**. Please be careful when editing the registry. Back up your registry if you are unsure.
+**Important:** Both manual methods require modifying the Windows Registry and need **Administrator privileges**. Please be careful when editing the registry. Back up your registry if you are unsure. The installer handles this automatically.
 
-### Option 1: Using the Executable (`FileNoter.exe`)
+### Option 1: Using the Installer (Recommended)
 
-1.  **Download:** Download `FileNoter.exe` and the provided `.reg` files (e.g., `add_note.reg`, `view_note.reg`).
-2.  **Place Executable:** Move `FileNoter.exe` to a permanent location on your computer where you won't accidentally delete it (e.g., `C:\Program Files\FileNoter\`).
+1.  **Download:** Go to the [Latest Release](https://github.com/JuuzouTem/FileNoter/releases/latest) page.
+2.  Download the `FileNoter_vX.X.X_setup.exe` file.
+3.  **Run Installer:** Double-click the downloaded `.exe` file and follow the on-screen instructions. The installer will:
+    *   Copy the necessary files to an appropriate location (e.g., `Program Files`).
+    *   Automatically configure the required Windows Registry entries for the "Add/Edit Note", "View Note", and "View All Notes" context menu options.
+    *   (Optional) Provide an uninstaller.
+4.  **Done!** You can now start using File Noter from the right-click menu.
+
+### Option 2: Manual Setup with Executable (`FileNoter.exe`)
+
+Use this if you prefer not to use the installer or want more control over the location.
+
+1.  **Download:** Go to the [Latest Release](https://github.com/JuuzouTem/FileNoter/releases/latest) page. Download `FileNoter.exe`. You will also need sample `.reg` files (or create your own based on the examples below). Let's assume you have `add_edit_note.reg`, `view_note.reg`, and `view_all_notes.reg`.
+2.  **Place Executable:** Move `FileNoter.exe` to a permanent location on your computer where it won't be accidentally moved or deleted (e.g., `C:\Program Files\FileNoter\`).
 3.  **Edit Registry Files:**
-    *   Open **each** `.reg` file using a text editor (like Notepad).
-    *   Find the placeholder text: `"your_folder_location"`
-    *   Replace **all occurrences** of `"your_folder_location"` with the **full path** to where you placed `FileNoter.exe`.
+    *   Open **each** `.reg` file (`add_edit_note.reg`, `view_note.reg`, `view_all_notes.reg`) using a text editor (like Notepad).
+    *   Find lines similar to the examples below and replace `"C:\\path\\to\\your\\FileNoter.exe"` with the **full path** to where you placed `FileNoter.exe`.
     *   **Crucially:** Use **double backslashes (`\\`)** in the path within the `.reg` file.
-    *   Example: If you placed the file at `C:\Tools\FileNoter\FileNoter.exe`, the line in the `.reg` file should look something like: `@="\"C:\\Tools\\FileNoter\\FileNoter.exe\" --add \"%1\""` (adjust according to the specific structure of your `.reg` files).
-    *   Save the changes to the `.reg` files.
+
+    *   **Example for `add_edit_note.reg`:**
+        ```reg
+        Windows Registry Editor Version 5.00
+
+        [HKEY_CLASSES_ROOT\*\shell\AddEditFileNoter]
+        @="Add/Edit Note"
+
+        [HKEY_CLASSES_ROOT\*\shell\AddEditFileNoter\command]
+        @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --add \"%1\""
+
+        [HKEY_CLASSES_ROOT\Directory\shell\AddEditFileNoter]
+        @="Add/Edit Note"
+
+        [HKEY_CLASSES_ROOT\Directory\shell\AddEditFileNoter\command]
+        @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --add \"%1\""
+        ```
+
+    *   **Example for `view_note.reg`:**
+        ```reg
+        Windows Registry Editor Version 5.00
+
+        [HKEY_CLASSES_ROOT\*\shell\ViewFileNoter]
+        @="View Note"
+
+        [HKEY_CLASSES_ROOT\*\shell\ViewFileNoter\command]
+        @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view \"%1\""
+
+        [HKEY_CLASSES_ROOT\Directory\shell\ViewFileNoter]
+        @="View Note"
+
+        [HKEY_CLASSES_ROOT\Directory\shell\ViewFileNoter\command]
+        @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view \"%1\""
+        ```
+
+    *   **Example for `view_all_notes.reg`:** (Note: `%1` is not needed here)
+        ```reg
+        Windows Registry Editor Version 5.00
+
+        [HKEY_CLASSES_ROOT\Directory\Background\shell\ViewAllFileNoter]
+        @="View All Notes"
+
+        [HKEY_CLASSES_ROOT\Directory\Background\shell\ViewAllFileNoter\command]
+        @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view-all"
+        ```
+        *(Note: This example adds "View All Notes" when right-clicking the background of a folder. You can adapt the `HKEY_CLASSES_ROOT` path if you want it elsewhere, e.g., under `*\shell` to appear when clicking *any* file, though that might be less intuitive).*
+
+    *   Save the changes to all `.reg` files.
 4.  **Apply Registry Changes:**
-    *   Double-click on the first edited `.reg` file (e.g., `add_note.reg`).
-    *   You will likely see a User Account Control (UAC) prompt asking for Administrator permission. Click **Yes**.
-    *   You will see a Registry Editor warning. Click **Yes** to continue.
-    *   You should see a confirmation message that the keys and values were successfully added. Click **OK**.
-    *   Repeat this step for the other edited `.reg` file (e.g., `view_note.reg`).
+    *   Double-click each edited `.reg` file one by one.
+    *   Approve the User Account Control (UAC) prompt (Click **Yes**).
+    *   Confirm the Registry Editor warning (Click **Yes**).
+    *   Click **OK** on the success message. Repeat for all `.reg` files.
 
-### Option 2: Using the Python Script (`file_noter.py`)
+### Option 3: Manual Setup with Python Script (`file_noter_vX.X.X.py`)
 
-1.  **Prerequisites:** Ensure you have Python installed on your system. It's recommended to use `pythonw.exe` (usually included with standard Python installations) to avoid console windows popping up.
-2.  **Download:** Download `file_noter.py` and the provided `.reg` files (e.g., `add_note.reg`, `view_note.reg`).
-3.  **Place Script:** Move `file_noter.py` to a permanent location on your computer (e.g., `C:\Scripts\FileNoter\`).
+Use this if you prefer running directly from the Python script.
+
+1.  **Prerequisites:** Ensure you have Python 3 installed and added to your system's PATH. Using `pythonw.exe` (usually included) is recommended to avoid console windows popping up.
+2.  **Download:** Download the `file_noter_vX.X.X.py` script from the source code or Releases. You will also need sample `.reg` files as described in Option 2.
+3.  **Place Script:** Move the `.py` script to a permanent location (e.g., `C:\Scripts\FileNoter\`). Rename it to something simple like `filenoter.py` if desired.
 4.  **Edit Registry Files:**
-    *   Open **each** `.reg` file using a text editor (like Notepad).
-    *   Locate the lines defining the commands for adding and viewing notes. They will look similar to the examples below.
-    *   **For adding notes (`add_note.reg` or similar):**
-        *   Find the line similar to: `@="\"C:\\path\\to\\your\\pythonw.exe\" \"C:\\path\\to\\your\\file_noter.py\" --add \"%1\""`
-        *   Replace `"C:\\path\\to\\your\\pythonw.exe"` with the actual full path to your `pythonw.exe`. Remember to use **double backslashes (`\\`)**.
-        *   Replace `"C:\\path\\to\\your\\file_noter.py"` with the actual full path to where you placed `file_noter.py`. Remember to use **double backslashes (`\\`)**.
-    *   **For viewing notes (`view_note.reg` or similar):**
-        *   Find the line similar to: `@="\"C:\\path\\to\\your\\pythonw.exe\" \"C:\\path\\to\\your\\file_noter.py\" --view \"%1\""`
-        *   Replace `"C:\\path\\to\\your\\pythonw.exe"` with the actual full path to your `pythonw.exe`. Remember to use **double backslashes (`\\`)**.
-        *   Replace `"C:\\path\\to\\your\\file_noter.py"` with the actual full path to where you placed `file_noter.py`. Remember to use **double backslashes (`\\`)**.
-    *   Save the changes to the `.reg` files.
-5.  **Apply Registry Changes:**
-    *   Double-click on the first edited `.reg` file (e.g., `add_note.reg`).
-    *   You will likely see a User Account Control (UAC) prompt asking for Administrator permission. Click **Yes**.
-    *   You will see a Registry Editor warning. Click **Yes** to continue.
-    *   You should see a confirmation message that the keys and values were successfully added. Click **OK**.
-    *   Repeat this step for the other edited `.reg` file (e.g., `view_note.reg`).
+    *   Open **each** `.reg` file (`add_edit_note.reg`, `view_note.reg`, `view_all_notes.reg`) using a text editor.
+    *   Locate the command lines. Replace the path to the executable with the path to `pythonw.exe` followed by the path to your script.
+    *   Use **double backslashes (`\\`)** for all paths.
+
+    *   **Example command line for `add_edit_note.reg`:**
+        `@="\"C:\\Python311\\pythonw.exe\" \"C:\\Scripts\\FileNoter\\filenoter.py\" --add \"%1\""`
+    *   **Example command line for `view_note.reg`:**
+        `@="\"C:\\Python311\\pythonw.exe\" \"C:\\Scripts\\FileNoter\\filenoter.py\" --view \"%1\""`
+    *   **Example command line for `view_all_notes.reg`:** (No `%1`)
+        `@="\"C:\\Python311\\pythonw.exe\" \"C:\\Scripts\\FileNoter\\filenoter.py\" --view-all"`
+
+    *   Modify these lines within the `.reg` file structures shown in Option 2, replacing the `FileNoter.exe` path with the `pythonw.exe` and script path combination.
+    *   Save the changes to all `.reg` files.
+5.  **Apply Registry Changes:** Follow step 4 from Option 2 (double-click each `.reg` file and approve prompts).
 
 ## Usage
 
-Once you have completed the installation and setup steps:
+Once installed:
 
 1.  Navigate to any file or folder in Windows Explorer.
 2.  **Right-click** on the file or folder.
-3.  You should now see new options in the context menu (e.g., "Add/Edit Note" and "View Note" - the exact text depends on how the `.reg` files were configured).
-4.  Select **"Add/Edit Note"** to create a new note or modify an existing one for that item.
-5.  Select **"View Note"** to display the note currently associated with that item.
+3.  You should see new options:
+    *   **Add/Edit Note:** Opens a window to create or modify the note for the selected item. Saving an empty note will delete the note for that item.
+    *   **View Note:** Displays the current note for the selected item in a read-only window.
+4.  To see all notes, right-click on the background of a folder (or wherever you configured the `view_all_notes.reg` entry) and select:
+    *   **View All Notes:** Opens the dedicated window listing all notes. From here you can view content, delete notes, or right-click an entry to open its file location.
 
-That's it! You can now easily attach notes to your files and folders.
+## Uninstallation
 
-Enjoy your experience with FileNoter!
+*   **Installer Method:** Use the "Add or remove programs" feature in Windows Settings to uninstall File Noter.
+*   **Manual Method:**
+    1.  Delete the registry keys you added (e.g., `HKEY_CLASSES_ROOT\*\shell\AddEditFileNoter`, `HKEY_CLASSES_ROOT\*\shell\ViewFileNoter`, `HKEY_CLASSES_ROOT\Directory\Background\shell\ViewAllFileNoter`, etc.). You can do this using `regedit.exe` or by creating corresponding "remove" `.reg` files (which start the key path with a hyphen, e.g., `[-HKEY_CLASSES_ROOT\*\shell\AddEditFileNoter]`).
+    2.  Delete the `FileNoter.exe` or `.py` script file you placed manually.
+    3.  (Optional) Delete the notes database folder: `%APPDATA%\FileNoter`.
+
+Enjoy your enhanced file/folder organization with File Noter!
