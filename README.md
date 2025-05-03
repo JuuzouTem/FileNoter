@@ -35,7 +35,7 @@ You have two main ways to install File Noter: the recommended installer or manua
 
 Use this if you prefer not to use the installer or want more control over the location.
 
-1.  **Download:** Go to the [Latest Release](https://github.com/JuuzouTem/FileNoter) page. Basically download all files. You will need sample `.reg` files (or create your own based on the examples below). Let's assume you have `add_edit_note.reg`, `view_note.reg`, `add_note_folder.reg`,`view_note_folder.reg` and `view_all_notes.reg`.
+1.  **Download:** Go to the [Latest Release](https://github.com/JuuzouTem/FileNoter/releases/latest) page. Basically download `FileNoter_Setup.exe`. You will need sample `.reg` files if you download directly, Go to the [FileNoter Github](https://github.com/JuuzouTem/FileNoter/) page. (or create your own based on the examples below). Let's assume you have `add_edit_note.reg`, `view_note.reg`, `add_note_folder.reg`,`view_note_folder.reg` and `view_all_notes.reg`.
 2.  **Place Executable:** Move `FileNoter.exe` to a permanent location on your computer where it won't be accidentally moved or deleted (e.g., `C:\Program Files\FileNoter\`).
 3.  **Edit Registry Files:**
     *   Open **each** `.reg` file (`add_edit_note.reg`, `view_note.reg`, `add_note_folder.reg`,`view_note_folder.reg` and `view_all_notes.reg`) using a text editor (like Notepad).
