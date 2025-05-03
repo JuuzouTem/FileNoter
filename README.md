@@ -42,7 +42,7 @@ Use this if you prefer not to use the installer or want more control over the lo
     *   Find lines similar to the examples below and replace `"C:\\path\\to\\your\\FileNoter.exe"` with the **full path** to where you placed `FileNoter.exe`.
     *   **Crucially:** Use **double backslashes (`\\`)** in the path within the `.reg` file.
 
-    *   **Example for `add_edit_note.reg`:**
+    *   **Example for `add_edit_note.reg` (Applies to Files and Folders):**
         ```reg
         Windows Registry Editor Version 5.00
 
@@ -59,7 +59,7 @@ Use this if you prefer not to use the installer or want more control over the lo
         @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --add \"%1\""
         ```
 
-    *   **Example for `view_note.reg`:**
+    *   **Example for `view_note.reg` (Applies to Files and Folders):**
         ```reg
         Windows Registry Editor Version 5.00
 
@@ -76,7 +76,7 @@ Use this if you prefer not to use the installer or want more control over the lo
         @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view \"%1\""
         ```
 
-    *   **Example for `view_all_notes.reg`:** (Note: `%1` is not needed here)
+    *   **Example for `view_all_notes.reg` (Applies to Folder Background):**
         ```reg
         Windows Registry Editor Version 5.00
 
@@ -85,6 +85,31 @@ Use this if you prefer not to use the installer or want more control over the lo
 
         [HKEY_CLASSES_ROOT\Directory\Background\shell\ViewAllFileNoter\command]
         @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view-all"
+        ```
+
+    *   **Example for `add_note_folder_only.reg` (Applies *only* to Folders, specific text/icon):**
+        ```reg
+        Windows Registry Editor Version 5.00
+
+        [HKEY_CLASSES_ROOT\Directory\shell\TakeNote]
+        @="Not Al"
+        "Icon"="imageres.dll,71" ; Optional: Icon
+
+        [HKEY_CLASSES_ROOT\Directory\shell\TakeNote\command]
+        @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --add \"%1\""
+        ```
+        *(Note: If you use this, you might want to remove the `[HKEY_CLASSES_ROOT\Directory\shell\AddEditFileNoter]` sections from the first example if you don't want two "Add Note" entries for folders).*
+
+    *   **Example for `view_note_folder_only.reg` (Applies *only* to Folders, specific text/icon):**
+        ```reg
+        Windows Registry Editor Version 5.00
+
+        [HKEY_CLASSES_ROOT\Directory\shell\ViewNoteSpecific]
+        @="Notu Görüntüle"
+        "Icon"="shell32.dll,277" ; Optional: Icon
+
+        [HKEY_CLASSES_ROOT\Directory\shell\ViewNoteSpecific\command]
+        @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view \"%1\""
         ```
         *(Note: This example adds "View All Notes" when right-clicking the background of a folder. You can adapt the `HKEY_CLASSES_ROOT` path if you want it elsewhere, e.g., under `*\shell` to appear when clicking *any* file, though that might be less intuitive).*
 
