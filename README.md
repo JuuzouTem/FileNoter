@@ -111,7 +111,7 @@ Use this if you prefer not to use the installer or want more control over the lo
         [HKEY_CLASSES_ROOT\Directory\shell\ViewNoteSpecific\command]
         @="\"C:\\Program Files\\FileNoter\\FileNoter.exe\" --view \"%1\""
         ```
-        *(Note: This example adds "View All Notes" when right-clicking the background of a folder. You can adapt the `HKEY_CLASSES_ROOT` path if you want it elsewhere, e.g., under `*\shell` to appear when clicking *any* file, though that might be less intuitive).*
+        *(Note: I used `ViewNoteSpecific` for the key name to avoid conflict with the general `ViewNote` key if used simultaneously. Adjust as needed. Similar to the above, you might remove the folder part from the general `view_note.reg` if using this one exclusively for folders).*
 
     *   Save the changes to all `.reg` files.
 4.  **Apply Registry Changes:**
