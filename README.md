@@ -135,7 +135,7 @@ Use this if you prefer not to use the installer or want more control over the lo
     *   Confirm the Registry Editor warning (Click **Yes**).
     *   Click **OK** on the success message. Repeat for all `.reg` files.
 
-### Option 3: Manual Setup with Python Script (`file_noter_vX.X.X.py`)
+### Option 3: Manual Setup with Python Script (`file_noter_vX.Y.Z.py`)
 
 Use this if you prefer running directly from the Python script.
 
