@@ -1,8 +1,8 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\Directory\shell\TakeNote]
-@="Take Note"
+@="Not Al"
 "Icon"="imageres.dll,71" ; Opsiyonel: İkon
 
 [HKEY_CLASSES_ROOT\Directory\shell\TakeNote\command]
-@="\"C:\\Users\\your_folder_location\\FileNoter.exe\" --add \"%1\""
+@="\"C:\\Users\\Juuzou\\Desktop\\not_ekle\\dist\\FileNoter.exe\" --add \"%1\""
